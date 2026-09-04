@@ -1,0 +1,81 @@
+name: Switch store version
+
+# Flip the live store between v1 and v2 in seconds. Every variant is already
+# built and deployed (see deploy-variants.yml); this workflow only moves the
+# production domain with `vercel promote`, then checks the Auto Self-Healing
+# gates against the live site.
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: "Which version to make live"
+        required: true
+        default: "v2"
+        type: choice
+        options: [v1, v2]
+      break_mode:
+        description: "How v2 breaks a v1 scraper (ignored for v1)"
+        required: true
+        default: "selectors"
+        type: choice
+        options:
+          - selectors   # renamed classes, same URLs   -> parse_error  (triggers AND heals)
+          - urls        # moved URLs, same classes     -> dead_page    (triggers, cannot heal)
+          - both        # renamed classes + moved URLs -> dead_page + parse_error
+
+concurrency:
+  group: store-switch
+  cancel-in-progress: false
+
+jobs:
+  switch:
+    runs-on: ubuntu-latest
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+      STORE_BASE_URL: ${{ vars.STORE_BASE_URL }}
+      V: ${{ inputs.version }}
+      M: ${{ inputs.break_mode }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check configuration
+        run: |
+          missing=""
+          [ -z "$VERCEL_TOKEN" ] && missing="$missing VERCEL_TOKEN(secret)"
+          [ -z "$VERCEL_ORG_ID" ] && missing="$missing VERCEL_ORG_ID(variable)"
+          [ -z "$VERCEL_PROJECT_ID" ] && missing="$missing VERCEL_PROJECT_ID(variable)"
+          [ -z "$STORE_BASE_URL" ] && missing="$missing STORE_BASE_URL(variable)"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository settings:$missing. See README, section Setup."
+            exit 1
+          fi
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Promote the requested variant
+        run: node scripts/switch.mjs --version "$V" --mode "$M" | tee "$RUNNER_TEMP/switch.log"
+
+      - name: Verify Auto Self-Healing gates on the live site
+        continue-on-error: true
+        run: NO_COLOR=1 node scripts/verify.mjs --expect "$V/$([ "$V" = v1 ] && echo selectors || echo "$M")" | tee "$RUNNER_TEMP/verify.log"
+
+      - name: Job summary
+        if: always()
+        run: |
+          {
+            echo "## Live: \`$V\`$([ "$V" = v2 ] && echo " · break mode \`$M\`")"
+            echo
+            echo "$STORE_BASE_URL"
+            echo
+            echo '```'; cat "$RUNNER_TEMP/switch.log" 2>/dev/null; echo '```'
+            if [ -f "$RUNNER_TEMP/verify.log" ]; then
+              echo "### Gate check"; echo '```'; cat "$RUNNER_TEMP/verify.log"; echo '```'
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"

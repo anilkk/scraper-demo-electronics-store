@@ -1,0 +1,7 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "store-v1", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:v1"], "port": 3001 },
+    { "name": "store-v2", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev:v2"], "port": 3002 }
+  ]
+}

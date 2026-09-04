@@ -1,9 +1,12 @@
-<!-- BEGIN:nextjs-agent-rules -->
+# Agent notes
 
-# This is NOT the Next.js you know
+Demo store for the Bright Data Scraper Studio Auto Self-Healing talk. Read README.md
+first, then docs/runbook.md. Two rules that must survive any edit:
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` (resolved from this file's directory; in monorepos the `next` package may not be visible from the repo root) before writing any code. Heed deprecation notices.
+1. Every scraped field (name, brand, price, stock, SKU, specs, rating) is server-rendered
+   and carries a plain semantic class from the v1 or v2 vocabulary in
+   `src/components/v1` and `src/components/v2`. Never style those elements with hashed
+   class names, and never move product data into client-component props.
+2. A product URL that a build does not serve must return HTTP 404. No catch-all rewrites.
 
-This block is written and re-added by `next dev` — verify at `node_modules/next/dist/server/lib/generate-agent-files.js`. Removing it from a diff only re-creates the uncommitted change; committing it with your work keeps the tree clean.
-
-<!-- END:nextjs-agent-rules -->
+Build variants with `STORE_VERSION` and `BREAK_MODE`. See `src/lib/variant.ts`.

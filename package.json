@@ -1,12 +1,20 @@
 {
-  "name": "shop-scraper-demo",
+  "name": "scraper-demo-electronics-store",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:v1": "STORE_VERSION=v1 BREAK_MODE=selectors next dev -p 3001",
+    "dev:v2": "NEXT_DIST_DIR=.next-v2 STORE_VERSION=v2 BREAK_MODE=selectors next dev -p 3002",
     "build": "next build",
+    "build:v1": "STORE_VERSION=v1 BREAK_MODE=selectors next build",
+    "build:v2": "STORE_VERSION=v2 BREAK_MODE=selectors next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "deploy:variants": "node scripts/deploy-variants.mjs",
+    "switch": "node scripts/switch.mjs",
+    "verify": "node scripts/verify.mjs",
+    "inputs": "node scripts/inputs.mjs"
   },
   "dependencies": {
     "next": "16.3.4",
@@ -22,5 +30,8 @@
     "eslint-config-next": "16.3.4",
     "tailwindcss": "^4",
     "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

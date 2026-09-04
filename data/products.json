@@ -1,0 +1,391 @@
+{
+  "store": {
+    "name": "Voltique",
+    "tagline": "Considered electronics for everyday life",
+    "city": "Berlin"
+  },
+  "categories": [
+    {
+      "slug": "audio",
+      "name": "Audio",
+      "blurb": "Headphones, speakers and turntables tuned for real rooms.",
+      "image": { "id": "photo-1505740420928-5e560c06d30e", "alt": "Wireless headphones flat lay" }
+    },
+    {
+      "slug": "wearables",
+      "name": "Wearables",
+      "blurb": "Watches, bands and rings that track without nagging.",
+      "image": { "id": "photo-1546868871-7041f2a55e12", "alt": "Smartwatch with sports band" }
+    },
+    {
+      "slug": "smart-home",
+      "name": "Smart Home",
+      "blurb": "Thermostats, cameras, lights and cleaners that just work.",
+      "image": { "id": "photo-1519558260268-cde7e03a0152", "alt": "Smart speaker next to a phone" }
+    }
+  ],
+  "products": [
+    {
+      "id": "VQ-1001",
+      "slug": "aurora-anc-headphones",
+      "brand": "Sonar",
+      "name": "Aurora ANC Headphones",
+      "category": "audio",
+      "price": 29900,
+      "compareAt": 34900,
+      "rating": 4.8,
+      "reviewCount": 1243,
+      "stock": "in_stock",
+      "sku": "SNR-AUR-BLK",
+      "badge": "Best seller",
+      "tagline": "Silence the tram, keep the music.",
+      "description": "Aurora uses eight microphones and an adaptive filter that retunes itself forty times a second, so noise cancelling stays even when a bus door opens next to you. The 40 mm drivers are voiced for a flat midrange and a gentle low shelf, which suits long listening better than a boosted bass curve.\n\nThe headband is sprung steel wrapped in vegan leather, and the ear cups fold flat into a case that is thinner than a paperback. Forty hours of battery with ANC on, and a ten-minute charge buys five hours.",
+      "highlights": ["40 h battery with ANC on", "Multipoint pairing for two devices", "Foldable, 254 g"],
+      "specs": [
+        { "label": "Driver", "value": "40 mm dynamic" },
+        { "label": "Noise cancelling", "value": "Adaptive hybrid, 8 mics" },
+        { "label": "Battery", "value": "40 h (ANC on), 60 h (ANC off)" },
+        { "label": "Connectivity", "value": "Bluetooth 5.3, USB-C audio, 3.5 mm" },
+        { "label": "Weight", "value": "254 g" }
+      ],
+      "colors": ["Graphite", "Bone", "Moss"],
+      "image": { "id": "photo-1618366712010-f4ae9c647dcb", "alt": "Black wireless headphones on a white table", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Lena K.", "rating": 5, "title": "Finally quiet on the U8", "body": "I commute forty minutes each way and these erase the rumble completely. Podcasts at half volume.", "date": "2026-07-14" },
+        { "author": "Tobias R.", "rating": 5, "title": "Balanced, not boomy", "body": "Bought them for jazz and they do not smear the bass. Comfortable for a full workday.", "date": "2026-06-02" },
+        { "author": "Priya S.", "rating": 4, "title": "Case could be smaller", "body": "Sound and ANC are excellent. The case is slim but still takes up half my tote.", "date": "2026-05-21" }
+      ]
+    },
+    {
+      "id": "VQ-1002",
+      "slug": "pulse-pro-earbuds",
+      "brand": "Sonar",
+      "name": "Pulse Pro Earbuds",
+      "category": "audio",
+      "price": 17900,
+      "compareAt": null,
+      "rating": 4.6,
+      "reviewCount": 862,
+      "stock": "in_stock",
+      "sku": "SNR-PLS-GRY",
+      "badge": "New",
+      "tagline": "Small enough to forget, loud enough to notice.",
+      "description": "Pulse Pro fits with three vents that equalise pressure, so you can wear them for a whole flight without the plugged-ear feeling. Each bud carries a 10 mm driver and a bone-conduction sensor that picks up your voice from your jaw, which is why calls stay clear on a windy platform.\n\nThe case charges wirelessly and reports battery to your phone. Six hours per charge, thirty with the case, and an IP55 rating for rain and gym sweat.",
+      "highlights": ["Transparency mode with voice boost", "IP55 sweat and rain resistant", "Wireless charging case"],
+      "specs": [
+        { "label": "Driver", "value": "10 mm dynamic" },
+        { "label": "Battery", "value": "6 h buds, 30 h with case" },
+        { "label": "Water resistance", "value": "IP55" },
+        { "label": "Connectivity", "value": "Bluetooth 5.3, LE Audio" },
+        { "label": "Weight", "value": "5.1 g per bud" }
+      ],
+      "colors": ["Slate", "Chalk"],
+      "image": { "id": "photo-1606220945770-b5b6c2c55bf1", "alt": "Black and gray bluetooth earbuds", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Marco D.", "rating": 5, "title": "Calls actually work", "body": "First earbuds where the other side does not ask me to repeat myself outdoors.", "date": "2026-08-01" },
+        { "author": "Hanna W.", "rating": 4, "title": "Great fit, average app", "body": "Comfortable for hours. The companion app is slow to open but you rarely need it.", "date": "2026-07-19" }
+      ]
+    },
+    {
+      "id": "VQ-1003",
+      "slug": "beam-wireless-speaker",
+      "brand": "Ohm",
+      "name": "Beam Wireless Speaker",
+      "category": "audio",
+      "price": 24900,
+      "compareAt": 27900,
+      "rating": 4.7,
+      "reviewCount": 519,
+      "stock": "low_stock",
+      "sku": "OHM-BEM-BLK",
+      "badge": null,
+      "tagline": "One speaker that fills a kitchen and a balcony.",
+      "description": "Beam pairs a 3.5 inch woofer with two angled tweeters and a passive radiator on the back, so it throws sound wide instead of straight ahead. Room correction runs from the built-in mics the first time you play, and again whenever you move it.\n\nIt runs twenty hours on a charge and pairs with a second Beam for true stereo. Wi-Fi for multiroom, Bluetooth for guests, and a 3.5 mm input for the turntable.",
+      "highlights": ["Room correction from built-in mics", "Stereo pair with a second Beam", "20 h battery"],
+      "specs": [
+        { "label": "Drivers", "value": "3.5 in woofer, 2 x 0.75 in tweeters" },
+        { "label": "Power", "value": "60 W peak" },
+        { "label": "Battery", "value": "20 h" },
+        { "label": "Connectivity", "value": "Wi-Fi 6, Bluetooth 5.2, AirPlay, 3.5 mm" },
+        { "label": "Weight", "value": "1.9 kg" }
+      ],
+      "colors": ["Black", "Sand"],
+      "image": { "id": "photo-1589003077984-894e133dabab", "alt": "Black and silver portable speaker", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Jonas F.", "rating": 5, "title": "Wide sound", "body": "It sounds bigger than it looks. Room correction made a real difference in our tiled kitchen.", "date": "2026-06-28" },
+        { "author": "Aylin T.", "rating": 4, "title": "Heavy for a portable", "body": "Fantastic sound, but at almost two kilos it stays on the shelf more than I expected.", "date": "2026-05-09" }
+      ]
+    },
+    {
+      "id": "VQ-1004",
+      "slug": "vinyl-one-turntable",
+      "brand": "Ohm",
+      "name": "Vinyl One Turntable",
+      "category": "audio",
+      "price": 39900,
+      "compareAt": null,
+      "rating": 4.9,
+      "reviewCount": 204,
+      "stock": "in_stock",
+      "sku": "OHM-VNL-WAL",
+      "badge": "Staff pick",
+      "tagline": "Belt drive, carbon tonearm, no fuss.",
+      "description": "Vinyl One is a belt-driven deck with a carbon fibre tonearm and a pre-fitted Ortofon-style cartridge, aligned at the factory so the first record sounds right. The plinth is MDF wrapped in real walnut veneer, sitting on adjustable isolation feet.\n\nA switchable phono stage means it plugs straight into Beam or any powered speaker, and Bluetooth output is there for headphones. Speed change is a button, not a belt swap.",
+      "highlights": ["Factory-aligned cartridge", "Built-in switchable phono stage", "Electronic 33/45 speed change"],
+      "specs": [
+        { "label": "Drive", "value": "Belt, DC motor" },
+        { "label": "Tonearm", "value": "Carbon fibre, 8.6 in" },
+        { "label": "Cartridge", "value": "Moving magnet, pre-fitted" },
+        { "label": "Outputs", "value": "Phono/line switchable, Bluetooth 5.0" },
+        { "label": "Weight", "value": "5.6 kg" }
+      ],
+      "colors": ["Walnut", "Black oak"],
+      "image": { "id": "photo-1542395118-9d95347995bc", "alt": "Black and blue turntable", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Sebastian M.", "rating": 5, "title": "Set up in five minutes", "body": "Everything was aligned out of the box. Quiet motor, no hum through the phono stage.", "date": "2026-07-30" },
+        { "author": "Clara B.", "rating": 5, "title": "Looks as good as it sounds", "body": "The walnut is real veneer, not print. Worth the extra over the plastic decks.", "date": "2026-04-12" }
+      ]
+    },
+    {
+      "id": "VQ-2001",
+      "slug": "orbit-smartwatch",
+      "brand": "Meridian",
+      "name": "Orbit Smartwatch",
+      "category": "wearables",
+      "price": 34900,
+      "compareAt": 39900,
+      "rating": 4.7,
+      "reviewCount": 1587,
+      "stock": "in_stock",
+      "sku": "MRD-ORB-44",
+      "badge": "Best seller",
+      "tagline": "Six days of battery. Every metric you want, none you do not.",
+      "description": "Orbit runs a week between charges because the always-on display is a low-power OLED that only redraws what changed. Heart rate, blood oxygen, skin temperature and sleep stages are sampled continuously, and the app shows them as trends rather than a wall of numbers.\n\nThe case is titanium, the crystal is sapphire, and the strap swaps without tools. Dual-band GPS locks in seconds between Berlin's courtyards.",
+      "highlights": ["6-day battery", "Titanium case, sapphire glass", "Dual-band GPS"],
+      "specs": [
+        { "label": "Display", "value": "1.4 in AMOLED, 466 x 466" },
+        { "label": "Battery", "value": "6 days typical" },
+        { "label": "Sensors", "value": "HR, SpO2, skin temp, ECG, barometer" },
+        { "label": "Water resistance", "value": "5 ATM" },
+        { "label": "Weight", "value": "38 g without strap" }
+      ],
+      "colors": ["Titanium", "Black"],
+      "image": { "id": "photo-1579586337278-3befd40fd17a", "alt": "Smartwatch with a dark textured band", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Felix N.", "rating": 5, "title": "The battery claim is real", "body": "Six days with workouts and notifications on. My old watch needed charging every night.", "date": "2026-08-05" },
+        { "author": "Ines G.", "rating": 4, "title": "Big on small wrists", "body": "Love the screen but the 44 mm case is a lot. A 40 mm option would be perfect.", "date": "2026-06-17" },
+        { "author": "Ravi P.", "rating": 5, "title": "Sleep tracking that makes sense", "body": "Clear trend view instead of raw graphs. It nudged me to sleep earlier and it worked.", "date": "2026-05-30" }
+      ]
+    },
+    {
+      "id": "VQ-2002",
+      "slug": "stride-fitness-band",
+      "brand": "Meridian",
+      "name": "Stride Fitness Band",
+      "category": "wearables",
+      "price": 7900,
+      "compareAt": null,
+      "rating": 4.4,
+      "reviewCount": 2210,
+      "stock": "in_stock",
+      "sku": "MRD-STR-BLK",
+      "badge": "Value",
+      "tagline": "Steps, sleep and heart rate for two weeks per charge.",
+      "description": "Stride is the band you forget you are wearing. A 1.1 inch AMOLED strip shows the time and your rings, the optical sensor tracks heart rate and sleep, and the whole thing weighs less than a coin.\n\nFourteen days of battery, swim-proof to 50 metres, and the same trend-based app as Orbit. Straps come in eight colours and click on without a tool.",
+      "highlights": ["14-day battery", "Swim-proof to 50 m", "Under 15 g"],
+      "specs": [
+        { "label": "Display", "value": "1.1 in AMOLED" },
+        { "label": "Battery", "value": "14 days typical" },
+        { "label": "Sensors", "value": "HR, SpO2, accelerometer" },
+        { "label": "Water resistance", "value": "5 ATM" },
+        { "label": "Weight", "value": "14 g" }
+      ],
+      "colors": ["Black", "Coral", "Sage"],
+      "image": { "id": "photo-1576243345690-4e4b79b63288", "alt": "Black fitness tracker band", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Nadia A.", "rating": 4, "title": "Does the basics well", "body": "Accurate steps, decent sleep tracking, two weeks of battery. No complaints for the price.", "date": "2026-07-08" },
+        { "author": "Ole H.", "rating": 5, "title": "Perfect gym band", "body": "Light enough for pull-ups and the screen is readable outside.", "date": "2026-06-11" }
+      ]
+    },
+    {
+      "id": "VQ-2003",
+      "slug": "halo-smart-ring",
+      "brand": "Meridian",
+      "name": "Halo Smart Ring",
+      "category": "wearables",
+      "price": 29900,
+      "compareAt": null,
+      "rating": 4.5,
+      "reviewCount": 431,
+      "stock": "preorder",
+      "sku": "MRD-HLO-TI",
+      "badge": "New",
+      "tagline": "Sleep and recovery tracking, no screen, no subscription.",
+      "description": "Halo is a titanium ring with three sensors on the inside face: an optical heart rate array, a skin temperature sensor and a three-axis accelerometer. It reads sleep stages, resting heart rate and heart rate variability, then rolls them into a single recovery score each morning.\n\nThere is no screen and no subscription. Seven days of battery, charged on a small dock, and a sizing kit ships first so the fit is right.",
+      "highlights": ["7-day battery", "No subscription, ever", "Sizing kit included"],
+      "specs": [
+        { "label": "Material", "value": "Grade 5 titanium" },
+        { "label": "Battery", "value": "7 days" },
+        { "label": "Sensors", "value": "HR, HRV, skin temp, accelerometer" },
+        { "label": "Water resistance", "value": "100 m" },
+        { "label": "Weight", "value": "3 to 5 g by size" }
+      ],
+      "colors": ["Titanium", "Matte black"],
+      "image": { "id": "photo-1746280978271-1ef1a2d9447f", "alt": "Smart ring displayed on a clear block", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Sofia L.", "rating": 5, "title": "Forgot it was on", "body": "Wore it through a week of climbing and swimming. The recovery score matches how I feel.", "date": "2026-08-10" },
+        { "author": "Daniel K.", "rating": 4, "title": "Order the sizing kit", "body": "My first guess was a half size off. The kit fixed it. Great data since.", "date": "2026-07-22" }
+      ]
+    },
+    {
+      "id": "VQ-2004",
+      "slug": "tempo-gps-sport-watch",
+      "brand": "Meridian",
+      "name": "Tempo GPS Sport Watch",
+      "category": "wearables",
+      "price": 24900,
+      "compareAt": 27900,
+      "rating": 4.6,
+      "reviewCount": 698,
+      "stock": "in_stock",
+      "sku": "MRD-TMP-BLK",
+      "badge": null,
+      "tagline": "Built for the Tiergarten loop and the Sunday long run.",
+      "description": "Tempo is a running watch first. Dual-band GPS with a stripped-back transflective display that stays readable in full sun and runs eighteen days in watch mode, forty hours with GPS on. Training load, recovery time and race predictions are all computed on the watch.\n\nThe bezel is fibre-reinforced polymer, the buttons work with gloves, and it pairs with chest straps and bike sensors over ANT+ and Bluetooth.",
+      "highlights": ["40 h GPS battery", "Readable in full sun", "ANT+ and Bluetooth sensors"],
+      "specs": [
+        { "label": "Display", "value": "1.3 in transflective MIP" },
+        { "label": "Battery", "value": "18 days watch, 40 h GPS" },
+        { "label": "GPS", "value": "Dual-band, multi-GNSS" },
+        { "label": "Water resistance", "value": "10 ATM" },
+        { "label": "Weight", "value": "47 g" }
+      ],
+      "colors": ["Black", "Orange"],
+      "image": { "id": "photo-1632794716789-42d9995fb5b6", "alt": "Close up of a smart watch on a table", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Lukas E.", "rating": 5, "title": "GPS locks instantly", "body": "Between buildings on Friedrichstrasse it still tracks straight lines. Battery lasts weeks.", "date": "2026-07-03" },
+        { "author": "Mira O.", "rating": 4, "title": "Screen is dim indoors", "body": "Brilliant outside, dull under office lights. That is the trade for the battery life.", "date": "2026-05-26" }
+      ]
+    },
+    {
+      "id": "VQ-3001",
+      "slug": "terra-smart-thermostat",
+      "brand": "Hearth",
+      "name": "Terra Smart Thermostat",
+      "category": "smart-home",
+      "price": 19900,
+      "compareAt": null,
+      "rating": 4.7,
+      "reviewCount": 976,
+      "stock": "in_stock",
+      "sku": "HRT-TRA-SLV",
+      "badge": "Energy saver",
+      "tagline": "Learns your week, then trims your heating bill.",
+      "description": "Terra learns when you leave and when you come home from your phone's location and its own motion sensor, and builds a schedule you can edit with a swipe. It talks to most European boilers and heat pumps over OpenTherm, and to radiator valves over Thread.\n\nThe dial is machined aluminium with a round e-paper display that stays on without glowing at night. Independent tests show twelve to fifteen percent lower gas use over a heating season.",
+      "highlights": ["Works with OpenTherm boilers and heat pumps", "E-paper display", "Thread radiator valve support"],
+      "specs": [
+        { "label": "Compatibility", "value": "OpenTherm, on/off, heat pumps" },
+        { "label": "Display", "value": "2.1 in round e-paper" },
+        { "label": "Connectivity", "value": "Wi-Fi, Thread, Matter" },
+        { "label": "Power", "value": "Wired or 2 x AA backup" },
+        { "label": "Diameter", "value": "84 mm" }
+      ],
+      "colors": ["Silver", "Charcoal"],
+      "image": { "id": "photo-1545259741-2ea3ebf61fa3", "alt": "Gray smart thermostat on a wall", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Katrin S.", "rating": 5, "title": "Bill went down", "body": "First winter with Terra and we used noticeably less gas. The schedule it learned was right.", "date": "2026-03-14" },
+        { "author": "Paul V.", "rating": 4, "title": "Installer needed for OpenTherm", "body": "Worked first time but I paid an electrician to wire it. The app is clean.", "date": "2026-02-27" }
+      ]
+    },
+    {
+      "id": "VQ-3002",
+      "slug": "sentinel-outdoor-camera",
+      "brand": "Hearth",
+      "name": "Sentinel Outdoor Camera",
+      "category": "smart-home",
+      "price": 14900,
+      "compareAt": 16900,
+      "rating": 4.5,
+      "reviewCount": 1104,
+      "stock": "in_stock",
+      "sku": "HRT-SNT-WHT",
+      "badge": null,
+      "tagline": "2K video, local storage, no monthly fee.",
+      "description": "Sentinel records 2K HDR video to a card inside the camera and, optionally, to a hub in your home. Nothing leaves your network unless you choose to share a clip. Person, vehicle and package detection run on the camera itself.\n\nA 160 degree lens covers a courtyard entrance, the spotlight is warm white rather than blinding, and the two-way audio works through the app or through a Beam speaker.",
+      "highlights": ["Local storage, no subscription", "On-device person and package detection", "IP66 weatherproof"],
+      "specs": [
+        { "label": "Resolution", "value": "2K HDR, 30 fps" },
+        { "label": "Field of view", "value": "160 degrees" },
+        { "label": "Storage", "value": "microSD up to 512 GB, optional hub" },
+        { "label": "Connectivity", "value": "Wi-Fi 6, Ethernet with PoE" },
+        { "label": "Weather rating", "value": "IP66" }
+      ],
+      "colors": ["White", "Black"],
+      "image": { "id": "photo-1549109926-58f039549485", "alt": "White surveillance camera mounted on a wall", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Georg B.", "rating": 5, "title": "No cloud, no fee", "body": "Everything stays on the card and the hub. Alerts are accurate, few false positives from cats.", "date": "2026-06-20" },
+        { "author": "Elif D.", "rating": 4, "title": "Night video is good", "body": "Clear faces at the gate in the dark. Setup took a couple of tries on 5 GHz Wi-Fi.", "date": "2026-04-30" }
+      ]
+    },
+    {
+      "id": "VQ-3003",
+      "slug": "glow-smart-bulb-kit",
+      "brand": "Hearth",
+      "name": "Glow Smart Bulb Kit",
+      "category": "smart-home",
+      "price": 8900,
+      "compareAt": null,
+      "rating": 4.3,
+      "reviewCount": 1876,
+      "stock": "in_stock",
+      "sku": "HRT-GLW-3PK",
+      "badge": "3-pack",
+      "tagline": "Three warm-to-cool bulbs and a hub-free start.",
+      "description": "Glow bulbs tune from a candle-like 1800 K to a crisp 6500 K, with sixteen million colours when you want them. They join your network over Matter, so they work with any phone and any speaker without a separate hub.\n\nThe kit includes three E27 bulbs and a wireless dimmer switch that sticks to a wall. Schedules, scenes and a sunrise alarm are all in the app.",
+      "highlights": ["Matter over Thread, no hub", "1800 K to 6500 K white range", "Wireless dimmer included"],
+      "specs": [
+        { "label": "Fitting", "value": "E27" },
+        { "label": "Brightness", "value": "1100 lm" },
+        { "label": "Colour", "value": "1800 to 6500 K, RGB" },
+        { "label": "Connectivity", "value": "Matter, Thread, Bluetooth" },
+        { "label": "Lifespan", "value": "25,000 h" }
+      ],
+      "colors": ["White"],
+      "image": { "id": "photo-1674659719067-8735479ba10c", "alt": "White smart light bulb on a table", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Anna P.", "rating": 4, "title": "Warm light is lovely", "body": "The 1800 K setting is genuinely candle-like. Pairing over Matter took under a minute.", "date": "2026-05-15" },
+        { "author": "Tim W.", "rating": 4, "title": "Dimmer is handy", "body": "Guests can turn the lights on without an app. Colours are a bit muted at low brightness.", "date": "2026-04-03" }
+      ]
+    },
+    {
+      "id": "VQ-3004",
+      "slug": "drift-robot-vacuum",
+      "brand": "Hearth",
+      "name": "Drift Robot Vacuum",
+      "category": "smart-home",
+      "price": 49900,
+      "compareAt": 59900,
+      "rating": 4.6,
+      "reviewCount": 742,
+      "stock": "low_stock",
+      "sku": "HRT-DRF-WHT",
+      "badge": "Sale",
+      "tagline": "Vacuums, mops and empties itself for six weeks.",
+      "description": "Drift maps your flat with lidar on its first run, then cleans room by room in straight lines. Suction is 8000 Pa with a rubber roller that does not wrap hair, and the mop pad lifts automatically over rugs.\n\nThe dock empties the bin into a sealed bag that lasts about six weeks, refills the water tank and dries the mop pad with warm air. Set no-go zones in the app and it respects them.",
+      "highlights": ["Lidar mapping, room by room", "Self-emptying and mop-washing dock", "8000 Pa suction"],
+      "specs": [
+        { "label": "Suction", "value": "8000 Pa" },
+        { "label": "Navigation", "value": "Lidar with obstacle camera" },
+        { "label": "Battery", "value": "180 min" },
+        { "label": "Dock", "value": "Auto empty, refill, mop dry" },
+        { "label": "Height", "value": "97 mm" }
+      ],
+      "colors": ["White", "Black"],
+      "image": { "id": "photo-1558317374-24793bc9f2fb", "alt": "White robot vacuum cleaner on a rug", "credit": "Unsplash" },
+      "reviews": [
+        { "author": "Julia R.", "rating": 5, "title": "Hair-free roller", "body": "Two long-haired people and a dog. The roller stays clean, which no previous robot managed.", "date": "2026-07-25" },
+        { "author": "Ben S.", "rating": 4, "title": "Dock is large", "body": "Cleans brilliantly. The dock needs a spot the size of a bedside table.", "date": "2026-06-06" }
+      ]
+    }
+  ]
+}

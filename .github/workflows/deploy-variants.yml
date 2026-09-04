@@ -1,0 +1,67 @@
+name: Build and deploy all variants
+
+# Builds v1, v2-selectors, v2-urls and v2-both as staged production
+# deployments on Vercel and records their URLs in deployments.json.
+# Run this after any code change. Run "Switch store version" to go live.
+
+on:
+  workflow_dispatch:
+    inputs:
+      promote:
+        description: "Variant to make live after deploying (blank keeps the current one)"
+        required: false
+        default: "v1"
+        type: choice
+        options: ["", v1, v2-selectors, v2-urls, v2-both]
+  push:
+    branches: [main]
+    paths-ignore:
+      - "deployments.json"
+      - "docs/**"
+      - "README.md"
+      - "BRIEF.md"
+
+concurrency:
+  group: store-deploy
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    env:
+      VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+      VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ vars.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+
+      - name: Check configuration
+        run: |
+          if [ -z "$VERCEL_TOKEN" ] || [ -z "$VERCEL_ORG_ID" ] || [ -z "$VERCEL_PROJECT_ID" ]; then
+            echo "::error::Set the VERCEL_TOKEN secret and the VERCEL_ORG_ID / VERCEL_PROJECT_ID variables. See README, section Setup."
+            exit 1
+          fi
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel@latest
+
+      - name: Deploy every variant
+        run: node scripts/deploy-variants.mjs ${{ inputs.promote && format('--promote {0}', inputs.promote) || '' }} | tee "$RUNNER_TEMP/deploy.log"
+
+      - name: Commit deployments.json
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add deployments.json
+          git commit -m "chore: record variant deployments [skip ci]" || echo "no change"
+          git push
+
+      - name: Job summary
+        if: always()
+        run: |
+          { echo "## Variant deployments"; echo '```'; cat "$RUNNER_TEMP/deploy.log"; echo '```'; } >> "$GITHUB_STEP_SUMMARY"

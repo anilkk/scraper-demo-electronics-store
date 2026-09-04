@@ -83,16 +83,16 @@ npm run deploy:variants -- --promote v1
 Flip, verify, generate scraper inputs:
 
 ```bash
-npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics-store.vercel.app
-npm run verify -- --base-url https://scraper-demo-electronics-store.vercel.app
-npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app          # 5 URLs, txt/csv/json
+npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics.vercel.app
+npm run verify -- --base-url https://scraper-demo-electronics.vercel.app
+npm run inputs -- --base-url https://scraper-demo-electronics.vercel.app          # 5 URLs, txt/csv/json
 ```
 
 ## Setup for the GitHub Actions
 
 | Kind | Name | Value |
 |---|---|---|
-| Secret | `VERCEL_TOKEN` | from vercel.com/account/tokens, scoped to the owning team |
+| Secret | `VERCEL_TOKEN` | from vercel.com/account/tokens, scoped to the `random-test` team |
 | Variable | `VERCEL_ORG_ID` | `orgId` in `.vercel/project.json` after `vercel link` |
 | Variable | `VERCEL_PROJECT_ID` | `projectId` in the same file |
 | Variable | `STORE_BASE_URL` | production URL, no trailing slash |

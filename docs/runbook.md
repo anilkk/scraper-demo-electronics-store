@@ -9,7 +9,7 @@ Source docs: [Auto Self-Healing](https://docs.brightdata.com/products/scraper-st
 [Error codes](https://docs.brightdata.com/products/scraper-studio/error-codes) ·
 [AI agent](https://docs.brightdata.com/products/scraper-studio/ai-agent)
 
-Live store: `https://scraper-demo-electronics-store.vercel.app`
+Live store: `https://scraper-demo-electronics.vercel.app`
 
 ---
 
@@ -92,7 +92,7 @@ again after a code change. The switch itself never builds.
 2. Inputs: the 5 URLs from
 
    ```bash
-   npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app
+   npm run inputs -- --base-url https://scraper-demo-electronics.vercel.app
    ```
 
    (written to `inputs/v1-selectors-product-urls.{txt,csv,json}`).
@@ -135,13 +135,13 @@ Measured flip time on 2026-09-04: 5 to 15 seconds, including three consecutive c
 terminal you can do the same without GitHub:
 
 ```bash
-npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics-store.vercel.app
+npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics.vercel.app
 ```
 
 Check state at any point:
 
 ```bash
-npm run verify -- --base-url https://scraper-demo-electronics-store.vercel.app
+npm run verify -- --base-url https://scraper-demo-electronics.vercel.app
 ```
 
 It reports which version is live, what a v1-trained scraper would get on each of the 5

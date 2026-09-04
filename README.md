@@ -1,6 +1,6 @@
 # Voltique: a demo store that breaks scrapers on purpose
 
-[![Switch store version](https://github.com/anil-bd/scraper-demo-electronics-store/actions/workflows/switch-version.yml/badge.svg)](https://github.com/anil-bd/scraper-demo-electronics-store/actions/workflows/switch-version.yml)
+[![Switch store version](https://github.com/anilkk/scraper-demo-electronics-store/actions/workflows/switch-version.yml/badge.svg)](https://github.com/anilkk/scraper-demo-electronics-store/actions/workflows/switch-version.yml)
 [![Deploy](https://img.shields.io/badge/deploy-Vercel-black?logo=vercel)](https://vercel.com)
 
 A realistic electronics store, built for the Bright Data **Scraper Studio Auto

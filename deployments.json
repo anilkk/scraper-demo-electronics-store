@@ -20,6 +20,13 @@
       "mode": "urls",
       "commit": "b6a215f",
       "deployedAt": "2026-09-04T12:08:58.389Z"
+    },
+    "v2-both": {
+      "url": "https://scraper-demo-electronics-store-hr7p9ua7a-anil-bds-projects.vercel.app",
+      "version": "v2",
+      "mode": "both",
+      "commit": "b6a215f",
+      "deployedAt": "2026-09-04T12:09:18.052Z"
     }
   }
 }

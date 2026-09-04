@@ -5,8 +5,11 @@ import { VERSION, MODE, RESOLVED, expectedErrorCodes, productPath } from "@/lib/
  * Reports what this deployment is. The switch workflow polls it until the
  * live URL reports the requested version, and verify.mjs reads it to know
  * which selectors and URLs should resolve.
+ *
+ * Prerendered at build time so the answer is baked into the deployment.
+ * Cache-Control: no-store comes from next.config.ts and vercel.json.
  */
-export const dynamic = "force-dynamic";
+export const dynamic = "force-static";
 
 export function GET() {
   const body = {

@@ -50,3 +50,18 @@ export function color(on) {
     bold: (s) => (enabled ? `\x1b[1m${s}\x1b[0m` : s),
   };
 }
+
+/**
+ * Team scope for the Vercel CLI. Without it, `vercel promote <url>` can resolve
+ * to the personal account and fail with "Deployment belongs to a different team".
+ * Order: VERCEL_SCOPE, VERCEL_ORG_ID (CI), then .vercel/project.json (local link).
+ */
+export function scopeArgs() {
+  const fromEnv = process.env.VERCEL_SCOPE || process.env.VERCEL_ORG_ID;
+  if (fromEnv) return ["--scope", fromEnv];
+  try {
+    const link = JSON.parse(readFileSync(join(ROOT, ".vercel/project.json"), "utf8"));
+    if (link.orgId) return ["--scope", link.orgId];
+  } catch {}
+  return [];
+}

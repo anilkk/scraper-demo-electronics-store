@@ -10,12 +10,12 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync, writeFileSync, existsSync } from "node:fs";
 import { join } from "node:path";
-import { ROOT, VARIANTS, arg } from "./lib.mjs";
+import { ROOT, VARIANTS, arg, scopeArgs } from "./lib.mjs";
 
 const only = arg("only", "").split(",").filter(Boolean);
 const promote = arg("promote", "");
 const token = process.env.VERCEL_TOKEN ? ["--token", process.env.VERCEL_TOKEN] : [];
-const scope = process.env.VERCEL_SCOPE ? ["--scope", process.env.VERCEL_SCOPE] : [];
+const scope = scopeArgs();
 const file = join(ROOT, "deployments.json");
 const record = existsSync(file) ? JSON.parse(readFileSync(file, "utf8")) : { deployments: {} };
 const sha = (() => { try { return execFileSync("git", ["rev-parse", "--short", "HEAD"], { cwd: ROOT }).toString().trim(); } catch { return "unknown"; } })();

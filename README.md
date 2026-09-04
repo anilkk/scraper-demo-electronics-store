@@ -83,9 +83,9 @@ npm run deploy:variants -- --promote v1
 Flip, verify, generate scraper inputs:
 
 ```bash
-npm run switch -- --version v2 --mode selectors --base-url https://YOUR-STORE.vercel.app
-npm run verify -- --base-url https://YOUR-STORE.vercel.app
-npm run inputs -- --base-url https://YOUR-STORE.vercel.app          # 5 URLs, txt/csv/json
+npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics-store.vercel.app
+npm run verify -- --base-url https://scraper-demo-electronics-store.vercel.app
+npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app          # 5 URLs, txt/csv/json
 ```
 
 ## Setup for the GitHub Actions

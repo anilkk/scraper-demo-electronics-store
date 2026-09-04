@@ -8,13 +8,13 @@
 import { execFileSync } from "node:child_process";
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { ROOT, arg, baseUrl } from "./lib.mjs";
+import { ROOT, arg, baseUrl, scopeArgs } from "./lib.mjs";
 
 const version = arg("version", "v2");
 const mode = version === "v1" ? "selectors" : arg("mode", "selectors");
 const key = version === "v1" ? "v1" : `v2-${mode}`;
 const token = process.env.VERCEL_TOKEN ? ["--token", process.env.VERCEL_TOKEN] : [];
-const scope = process.env.VERCEL_SCOPE ? ["--scope", process.env.VERCEL_SCOPE] : [];
+const scope = scopeArgs();
 
 const record = JSON.parse(readFileSync(join(ROOT, "deployments.json"), "utf8"));
 const d = record.deployments[key];

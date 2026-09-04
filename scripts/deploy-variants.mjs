@@ -34,8 +34,12 @@ for (const v of VARIANTS) {
     "--build-env", `BUILD_TIME=${new Date().toISOString()}`,
     "--meta", `variant=${v.key}`, "--meta", `commit=${sha}`,
   ]);
-  const deploymentUrl = url.split("\n").filter((l) => l.startsWith("https://")).pop();
-  if (!deploymentUrl) throw new Error(`could not read deployment URL from vercel output:\n${url}`);
+  // The CLI prints a bare URL in a terminal and a JSON document in agent mode. Accept both.
+  let deploymentUrl = "";
+  try { deploymentUrl = JSON.parse(url).deployment?.url || JSON.parse(url).url || ""; } catch {}
+  if (!deploymentUrl) deploymentUrl = (url.match(/https:\/\/[a-z0-9-]+(?:\.[a-z0-9-]+)*\.vercel\.app/g) || []).pop() || "";
+  if (!deploymentUrl.startsWith("https://")) deploymentUrl = `https://${deploymentUrl}`;
+  if (deploymentUrl === "https://") throw new Error(`could not read deployment URL from vercel output:\n${url}`);
   record.deployments[v.key] = { url: deploymentUrl, version: v.version, mode: v.mode, commit: sha, deployedAt: new Date().toISOString() };
   console.log(`   ${deploymentUrl}`);
   writeFileSync(file, JSON.stringify(record, null, 2) + "\n");

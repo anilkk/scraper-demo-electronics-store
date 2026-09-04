@@ -22,13 +22,13 @@ export function Shell({ children }: { children: ReactNode }) {
     <>
       <p className="bg-ink py-2 text-center text-[11px] uppercase tracking-[0.25em] text-paper/80">Complimentary shipping across the EU · Studio in Kreuzberg open Tue to Sat</p>
       <header className="sticky top-0 z-40 border-b border-ink/10 bg-paper/90 backdrop-blur">
-        <div className="mx-auto grid max-w-[1400px] grid-cols-3 items-center px-6 py-5">
+        <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center gap-4 px-4 py-4 md:grid-cols-3 md:px-6 md:py-5">
           <nav className="flex items-center gap-6 text-xs uppercase tracking-[0.2em]" aria-label="Collections">
             {CATEGORIES.map((c) => (<Link key={c.slug} href={categoryPath(c.slug)} className="hidden whitespace-nowrap hover:text-terra md:inline">{c.name}</Link>))}
             <Link href="/search?q=" className="whitespace-nowrap hover:text-terra">Shop all</Link>
           </nav>
-          <Link href="/" className="justify-self-center font-serif text-3xl tracking-[0.12em] uppercase" aria-label={`${STORE.name} home`}>{STORE.name}</Link>
-          <div className="flex items-center justify-end gap-6 text-xs uppercase tracking-[0.2em]">
+          <Link href="/" className="justify-self-center font-serif text-2xl tracking-[0.12em] uppercase md:text-3xl" aria-label={`${STORE.name} home`}>{STORE.name}</Link>
+          <div className="flex items-center justify-end gap-4 text-xs uppercase tracking-[0.2em] md:gap-6">
             <form action="/search" method="get" role="search" className="hidden items-center gap-2 border-b border-ink/30 focus-within:border-ink lg:flex">
               <input type="search" name="q" placeholder="Search" aria-label="Search products" className="w-32 bg-transparent py-1 text-xs uppercase tracking-[0.2em] outline-none placeholder:text-ink-soft" />
               <button type="submit" aria-label="Search">

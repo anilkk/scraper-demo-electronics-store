@@ -1,0 +1,25 @@
+{
+  "deployments": {
+    "v1": {
+      "url": "https://scraper-demo-electronics-store-a8oojd6ec-anil-bds-projects.vercel.app",
+      "version": "v1",
+      "mode": "selectors",
+      "commit": "b6a215f",
+      "deployedAt": "2026-09-04T12:08:12.720Z"
+    },
+    "v2-selectors": {
+      "url": "https://scraper-demo-electronics-store-lzzptgd26-anil-bds-projects.vercel.app",
+      "version": "v2",
+      "mode": "selectors",
+      "commit": "b6a215f",
+      "deployedAt": "2026-09-04T12:08:33.317Z"
+    },
+    "v2-urls": {
+      "url": "https://scraper-demo-electronics-store-bt4i84dod-anil-bds-projects.vercel.app",
+      "version": "v2",
+      "mode": "urls",
+      "commit": "b6a215f",
+      "deployedAt": "2026-09-04T12:08:58.389Z"
+    }
+  }
+}

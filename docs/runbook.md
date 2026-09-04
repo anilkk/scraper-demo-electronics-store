@@ -131,7 +131,7 @@ and have the Scraper Studio scraper open with a fresh successful v1 run.
    5 rows again, now reading `h1.item-title` and `299,00 €`.
 5. **Reset** afterwards: run the Action with `v1`.
 
-Typical flip time is under 30 seconds: a Vercel promote plus DNS/CDN propagation. From a
+Measured flip time on 2026-09-04: 5 to 15 seconds, including three consecutive confirmation polls. From a
 terminal you can do the same without GitHub:
 
 ```bash

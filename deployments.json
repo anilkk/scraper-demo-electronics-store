@@ -1,32 +1,32 @@
 {
   "deployments": {
     "v1": {
-      "url": "https://scraper-demo-electronics-store-a8oojd6ec-anil-bds-projects.vercel.app",
+      "url": "https://scraper-demo-electronics-store-olgajrluj-anil-bds-projects.vercel.app",
       "version": "v1",
       "mode": "selectors",
-      "commit": "b6a215f",
-      "deployedAt": "2026-09-04T12:08:12.720Z"
+      "commit": "1df96cb",
+      "deployedAt": "2026-09-04T12:16:58.053Z"
     },
     "v2-selectors": {
-      "url": "https://scraper-demo-electronics-store-lzzptgd26-anil-bds-projects.vercel.app",
+      "url": "https://scraper-demo-electronics-store-8s0wrlmj9-anil-bds-projects.vercel.app",
       "version": "v2",
       "mode": "selectors",
-      "commit": "b6a215f",
-      "deployedAt": "2026-09-04T12:08:33.317Z"
+      "commit": "1df96cb",
+      "deployedAt": "2026-09-04T12:17:24.069Z"
     },
     "v2-urls": {
-      "url": "https://scraper-demo-electronics-store-bt4i84dod-anil-bds-projects.vercel.app",
+      "url": "https://scraper-demo-electronics-store-7svkxbsfv-anil-bds-projects.vercel.app",
       "version": "v2",
       "mode": "urls",
-      "commit": "b6a215f",
-      "deployedAt": "2026-09-04T12:08:58.389Z"
+      "commit": "1df96cb",
+      "deployedAt": "2026-09-04T12:17:49.987Z"
     },
     "v2-both": {
-      "url": "https://scraper-demo-electronics-store-hr7p9ua7a-anil-bds-projects.vercel.app",
+      "url": "https://scraper-demo-electronics-store-h2yh1xsez-anil-bds-projects.vercel.app",
       "version": "v2",
       "mode": "both",
-      "commit": "b6a215f",
-      "deployedAt": "2026-09-04T12:09:18.052Z"
+      "commit": "1df96cb",
+      "deployedAt": "2026-09-04T12:18:15.689Z"
     }
   }
 }

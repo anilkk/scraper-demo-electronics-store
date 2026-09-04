@@ -32,19 +32,26 @@ if (!base) {
   console.log("Promoted. Set STORE_BASE_URL or pass --base-url to wait for the live site.");
   process.exit(0);
 }
-for (let i = 1; i <= 40; i++) {
+// Edge nodes can disagree for a few seconds after a promote, so require the
+// live site to report the new version three polls in a row.
+const NEEDED = 3;
+let streak = 0;
+for (let i = 1; i <= 60; i++) {
   try {
     const res = await fetch(`${base}/version.json`, { cache: "no-store" });
     const live = await res.json();
-    if (live.version === version && live.mode === mode) {
-      console.log(`Live: ${live.version}/${live.mode} after ${Math.round((Date.now() - started) / 1000)}s`);
+    const match = live.version === version && live.mode === mode;
+    streak = match ? streak + 1 : 0;
+    if (streak >= NEEDED) {
+      console.log(`Live: ${live.version}/${live.mode} after ${Math.round((Date.now() - started) / 1000)}s (${NEEDED} consecutive checks)`);
       process.exit(0);
     }
-    console.log(`  attempt ${i}: live=${live.version}/${live.mode} want=${version}/${mode}`);
+    console.log(`  attempt ${i}: live=${live.version}/${live.mode} want=${version}/${mode}${match ? ` (${streak}/${NEEDED})` : ""}`);
   } catch (err) {
+    streak = 0;
     console.log(`  attempt ${i}: ${err.message}`);
   }
-  await new Promise((r) => setTimeout(r, 3000));
+  await new Promise((r) => setTimeout(r, 2000));
 }
 console.error("Timed out waiting for the live site to report the new version.");
 process.exit(1);

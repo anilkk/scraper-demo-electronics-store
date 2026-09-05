@@ -2,7 +2,7 @@
 // Checks what the live store serves and whether it clears every Auto
 // Self-Healing trigger gate against a scraper trained on v1.
 //
-//   node scripts/verify.mjs --base-url https://your-store.vercel.app [--min-inputs 5] [--inputs 5] [--expect v2/selectors]
+//   node scripts/verify.mjs --base-url https://your-store.vercel.app [--min-inputs 10] [--inputs 12] [--expect v2/selectors]
 //
 // Exit code is 0 when every gate passes, 1 otherwise. --expect fails the run
 // if the live version/mode is not the one you asked for.
@@ -13,8 +13,8 @@ if (!base) {
   console.error("error: pass --base-url https://your-store.vercel.app (or set STORE_BASE_URL)");
   process.exit(1);
 }
-const minInputs = Number(arg("min-inputs", 5));
-const inputCount = Number(arg("inputs", 5));
+const minInputs = Number(arg("min-inputs", 10));
+const inputCount = Number(arg("inputs", 12));
 const successThreshold = Number(arg("success-threshold", 40));
 const expect = arg("expect", "");
 const c = color();
@@ -80,7 +80,7 @@ const gate1 = successRate < successThreshold;
 const gate2 = inputs.length >= minInputs;
 const gate3 = codes.some((x) => eligible.includes(x));
 console.log(`  ${gate1 ? c.pass : c.fail}  success rate ${successRate}% < ${successThreshold}%`);
-console.log(`  ${gate2 ? c.pass : c.fail}  inputs ${inputs.length} >= minimum ${minInputs}  ${c.dim("(set Minimum inputs to " + minInputs + " in Scraper Studio)")}`);
+console.log(`  ${gate2 ? c.pass : c.fail}  inputs ${inputs.length} >= minimum ${minInputs}  ${c.dim("(Minimum Inputs in Scraper Studio: " + minInputs + ")")}`);
 console.log(`  ${gate3 ? c.pass : c.fail}  error code in eligible set: ${codes.length ? codes.join(", ") : "none"}`);
 
 if (live.version === "v1") {

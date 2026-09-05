@@ -18,7 +18,7 @@ with an error code Auto Self-Healing is allowed to act on, and the flip between 
 one-click GitHub Action that finishes in seconds because every variant is pre-built.
 
 **Read [docs/runbook.md](docs/runbook.md) before filming.** It covers the Scraper Studio
-settings the demo needs (5 inputs, `price` required, Per Job checks), the on-stage
+settings the demo needs (12 inputs, a `price` that throws when missing, Per Job checks), the on-stage
 sequence, and what to do when nothing fires.
 
 ## Why it is built this way
@@ -29,7 +29,7 @@ fires only when three gates pass at once:
 | Gate | Default | How the store clears it |
 |---|---|---|
 | Success rate below threshold | 40 % | v2 drives a v1 scraper to 0 % |
-| Minimum inputs | 10 | the demo uses 5 PDP URLs, so **set Minimum inputs to 5** |
+| Minimum inputs | 10 | the demo feeds all 12 product URLs, so the default clears with margin |
 | One of six error codes | | v2 produces `parse_error` (default) or `dead_page` |
 
 Eligible codes: `crawl_error`, `parse_error`, `bad_cmd_arg`, `dead_page`, `bad_input`,
@@ -86,7 +86,7 @@ Flip, verify, generate scraper inputs:
 ```bash
 npm run switch -- --version v2 --mode selectors --base-url https://scraper-demo-electronics-store.vercel.app
 npm run verify -- --base-url https://scraper-demo-electronics-store.vercel.app
-npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app          # 5 URLs, txt/csv/json
+npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app          # 12 URLs, txt/csv/json
 ```
 
 ## Setup for the GitHub Actions

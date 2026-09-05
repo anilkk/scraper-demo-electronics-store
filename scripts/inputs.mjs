@@ -1,12 +1,11 @@
 #!/usr/bin/env node
 // Writes the product URL lists Scraper Studio takes as inputs.
 //
-//   node scripts/inputs.mjs --base-url https://your-store.vercel.app [--version v1] [--mode selectors] [--count 5]
+//   node scripts/inputs.mjs --base-url https://your-store.vercel.app [--version v1] [--mode selectors] [--count 12]
 //
 // Output: inputs/<version>-<mode>-product-urls.{txt,csv,json}
-// The default count is 5 because the Berlin demo uses a PDP scraper with 5
-// inputs. Remember to set Minimum inputs to 5 in Auto Self-Healing, or the
-// 10-input default gate never opens.
+// The default is all 12 products. Auto Self-Healing's Minimum Inputs gate
+// defaults to 10 and cannot go lower, so 12 clears it with margin.
 import { mkdirSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { ROOT, CATALOG, arg, resolve, productPath, baseUrl } from "./lib.mjs";
@@ -18,7 +17,7 @@ if (!base) {
 }
 const version = arg("version", "v1");
 const mode = arg("mode", "selectors");
-const count = Number(arg("count", 5));
+const count = Number(arg("count", 12));
 const { urls } = resolve(version, mode);
 
 const list = CATALOG.products.slice(0, count).map((p) => `${base}${productPath(p, urls)}`);

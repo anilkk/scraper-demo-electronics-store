@@ -20,7 +20,7 @@ Auto Self-Healing runs only when all three hold at once.
 | Gate | Default | What this demo does |
 |---|---|---|
 | Success rate below threshold | 40 % | v2 drives a v1 scraper to 0 % |
-| Minimum inputs | **10** | the demo uses **5** product URLs, so set this to **5** |
+| Minimum inputs | 10 | the demo feeds all **12** product URLs; 10 is the floor in the UI |
 | Error code in the eligible set | | v2 produces `parse_error` (selectors mode) |
 
 Eligible codes: `crawl_error`, `parse_error`, `bad_cmd_arg`, `dead_page`, `bad_input`,
@@ -91,7 +91,7 @@ builds. Locally the script also writes `deployments.json` (ignored by git) for
 ### 3. Build the scraper in Scraper Studio
 
 1. New scraper → AI agent → **PDP scraper**.
-2. Inputs: the 5 URLs from
+2. Inputs: the 12 URLs from
 
    ```bash
    npm run inputs -- --base-url https://scraper-demo-electronics-store.vercel.app
@@ -111,14 +111,14 @@ builds. Locally the script also writes `deployments.json` (ignored by git) for
    ```
 
    This is the single most common reason the demo does nothing.
-5. Run it against v1. Expect 5 clean rows with prices like `€299.00`.
+5. Run it against v1. Expect 12 clean rows with prices like `€299.00`.
 
 ### 4. Configure Auto Self-Healing on the scraper
 
 | Setting | Demo value | Why |
 |---|---|---|
 | Success rate threshold | 40 % (default) | v2 gives 0 % |
-| **Minimum inputs** | **5** | the demo has 5 inputs, the default 10 never opens |
+| Minimum inputs | 10 (default, the floor) | the demo feeds 12 URLs |
 | Check frequency | **Per Job** | Per Day will not fire twice in one session |
 | Cooldown hours | lowest allowed | the 3 h default blocks a second take |
 | Max healing jobs per day | 8 (default) | failed attempts count too |
@@ -135,28 +135,28 @@ that with **two identical scrapers**:
 
 | Scraper | Auto Self-Healing | Role |
 |---|---|---|
-| `voltique-pdp-live` | on, Per Job, min inputs 5 | breaks live on stage and visibly *triggers* healing |
+| `voltique-pdp-live` | on, Per Job, min inputs 10 | breaks live on stage and visibly *triggers* healing |
 | `voltique-pdp-healed` | on, same settings | broken and healed 30 to 60 minutes before the slot; shows the *result* |
 
 Two scrapers also sidestep the 3 hour cooldown, which would otherwise block a second
-trigger on the scraper you rehearsed with. Both take the same 5 input URLs.
+trigger on the scraper you rehearsed with. Both take the same 12 input URLs.
 
 ## On stage
 
 Before the talk, run the Action once with `v1` so the store is in the "before" state,
 and have the Scraper Studio scraper open with a fresh successful v1 run.
 
-1. **Show the store and the scraper.** Open a product page. Run the scraper: 5 rows,
+1. **Show the store and the scraper.** Open a product page. Run the scraper: 12 rows,
    prices, stock, specs.
 2. **Flip.** Actions → **Switch store version** → `v2`, break mode `selectors` → Run.
    The job summary shows the moment the live site reports v2 and a PASS/FAIL per gate.
    Refresh the store: new design, badge in the corner reads `v2 · redesign · selectors`.
-3. **Re-run the scraper.** It fails with `parse_error` on 5 of 5 inputs.
+3. **Re-run the scraper.** It fails with `parse_error` on 12 of 12 inputs.
 4. **Auto Self-Healing fires.** Open the scraper's Auto Self-Healing tab: the Status
    section lists the healing job that just started.
 5. **Show the outcome on the second scraper.** Switch to `voltique-pdp-healed`: the diff
    from its earlier heal (old `.product-price` selector replaced by `.price-tag`), and its
-   post-heal run with 5 rows reading `299,00 €`.
+   post-heal run with 12 rows reading `299,00 €`.
 6. **Reset** afterwards: run the Action with `v1`.
 
 Measured flip time on 2026-09-04: 5 to 15 seconds, including three consecutive confirmation polls. From a
@@ -172,7 +172,7 @@ Check state at any point:
 npm run verify -- --base-url https://scraper-demo-electronics-store.vercel.app
 ```
 
-It reports which version is live, what a v1-trained scraper would get on each of the 5
+It reports which version is live, what a v1-trained scraper would get on each of the 12
 inputs, and PASS/FAIL against each gate.
 
 ---
@@ -184,7 +184,7 @@ inputs, and PASS/FAIL against each gate.
 `dead_page` that cannot be swallowed (but cannot be healed either).
 
 **Nothing happened even though the run clearly failed.**
-Check the gates in order: input count ≥ Minimum inputs (set it to 5), success rate below
+Check the gates in order: input count ≥ Minimum inputs (12 ≥ 10), success rate below
 threshold, and the error code is one of the six. `wait_element_timeout` and `blocked` look
 like breakage but are not eligible.
 

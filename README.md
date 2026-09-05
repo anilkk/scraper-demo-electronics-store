@@ -52,9 +52,10 @@ Three things a Next.js store can get wrong are handled deliberately:
 ## How switching works
 
 ```
-deploy-variants.yml   builds v1, v2-selectors, v2-urls, v2-both  →  4 staged Vercel deployments
-                      records their URLs in deployments.json
-switch-version.yml    vercel promote <the one you picked>         →  live in seconds
+deploy-variants.yml   builds v1, v2-selectors, v2-urls, v2-both  →  4 staged Vercel deployments,
+                      each tagged with a `variant` meta key (runs on every push to main)
+switch-version.yml    finds the newest deployment with that tag and promotes it
+                      through the Vercel API                      →  live in seconds
                       polls /version.json, runs scripts/verify.mjs, writes a job summary
 ```
 
@@ -92,7 +93,7 @@ npm run inputs -- --base-url https://scraper-demo-electronics.vercel.app        
 
 | Kind | Name | Value |
 |---|---|---|
-| Secret | `VERCEL_TOKEN` | from vercel.com/account/tokens, scoped to the `random-test` team |
+| Secret | `VERCEL_TOKEN` | from vercel.com/account/settings/tokens, scope `random-test` (a team-scoped token is enough; the switch uses the REST API) |
 | Variable | `VERCEL_ORG_ID` | `orgId` in `.vercel/project.json` after `vercel link` |
 | Variable | `VERCEL_PROJECT_ID` | `projectId` in the same file |
 | Variable | `STORE_BASE_URL` | production URL, no trailing slash |
@@ -111,8 +112,8 @@ src/components/v1/          Shopcart-style design, v1 DOM vocabulary
 src/components/v2/          editorial design, v2 DOM vocabulary
 src/components/shared/      cart, wishlist, search filter, version badge (client-side, no product props)
 src/app/                    routes: /, /c/[slug], /p/[slug], /shop/[category]/[slug], /search, /version.json
-scripts/deploy-variants.mjs builds and deploys every variant, writes deployments.json
-scripts/switch.mjs          promotes a variant and waits for the live site to agree
+scripts/deploy-variants.mjs builds and deploys every variant, tags each with meta variant=<key>
+scripts/switch.mjs          promotes a variant (API in CI, CLI locally) and waits for the live site to agree
 scripts/verify.mjs          checks the three gates against the live site
 scripts/inputs.mjs          writes the product URL lists for Scraper Studio
 docs/runbook.md             the on-stage runbook

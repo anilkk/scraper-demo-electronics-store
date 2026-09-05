@@ -64,7 +64,9 @@ jobs:
 
       - name: Verify Auto Self-Healing gates on the live site
         continue-on-error: true
-        run: NO_COLOR=1 node scripts/verify.mjs --expect "$V/$([ "$V" = v1 ] && echo selectors || echo "$M")" | tee "$RUNNER_TEMP/verify.log"
+        # Edge nodes settle a few seconds after the promote; give them a moment
+        # so the verify fetches do not race the flip.
+        run: sleep 5 && NO_COLOR=1 node scripts/verify.mjs --expect "$V/$([ "$V" = v1 ] && echo selectors || echo "$M")" | tee "$RUNNER_TEMP/verify.log"
 
       - name: Job summary
         if: always()

@@ -1,8 +1,9 @@
 name: Build and deploy all variants
 
 # Builds v1, v2-selectors, v2-urls and v2-both as staged production
-# deployments on Vercel and records their URLs in deployments.json.
-# Run this after any code change. Run "Switch store version" to go live.
+# deployments on Vercel, each tagged with a `variant` meta key. The switch
+# workflow finds them by that tag, so nothing is committed back here.
+# Runs on every push to main; run "Switch store version" to go live.
 
 on:
   workflow_dispatch:
@@ -16,7 +17,6 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - "deployments.json"
       - "docs/**"
       - "README.md"
       - "BRIEF.md"
@@ -28,8 +28,6 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write
     env:
       VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
       VERCEL_ORG_ID: ${{ vars.VERCEL_ORG_ID }}
@@ -55,14 +53,6 @@ jobs:
 
       - name: Deploy every variant
         run: node scripts/deploy-variants.mjs ${{ inputs.promote && format('--promote {0}', inputs.promote) || '' }} | tee "$RUNNER_TEMP/deploy.log"
-
-      - name: Commit deployments.json
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add deployments.json
-          git commit -m "chore: record variant deployments [skip ci]" || echo "no change"
-          git push
 
       - name: Job summary
         if: always()

@@ -44,3 +44,6 @@ next-env.d.ts
 # demo tooling
 /inputs/
 /.vercel/
+
+# written by scripts/deploy-variants.mjs on this machine; CI finds deployments by meta tag
+deployments.json

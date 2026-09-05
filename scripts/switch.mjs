@@ -16,35 +16,40 @@ const key = version === "v1" ? "v1" : `v2-${mode}`;
 const token = process.env.VERCEL_TOKEN ? ["--token", process.env.VERCEL_TOKEN] : [];
 const scope = scopeArgs();
 
-const record = JSON.parse(readFileSync(join(ROOT, "deployments.json"), "utf8"));
-const d = record.deployments[key];
-if (!d) {
-  console.error(`error: no deployment recorded for ${key}. Run scripts/deploy-variants.mjs first.`);
-  process.exit(1);
-}
-
-console.log(`Promoting ${key} (${d.url}, commit ${d.commit})`);
 const started = Date.now();
 if (process.env.VERCEL_TOKEN) {
-  // CI path: the REST API accepts team-scoped tokens; the CLI does not
-  // ("User not found (404)"), and needs no install step.
-  await promoteViaApi(d.url);
+  // CI path. Every deployment carries a `variant` meta tag (see
+  // deploy-variants.mjs), so the newest ready production deployment for that
+  // tag is looked up through the REST API and promoted through it too. The
+  // API accepts team-scoped tokens; the CLI's promote does not ("User not
+  // found (404)"). Nothing needs to be committed back to the repo.
+  await promoteViaApi(key);
 } else {
-  // Local path: a logged-in Vercel CLI.
+  // Local path: a logged-in Vercel CLI and the deployments.json written by
+  // deploy-variants.mjs on this machine.
+  const record = JSON.parse(readFileSync(join(ROOT, "deployments.json"), "utf8"));
+  const d = record.deployments[key];
+  if (!d) {
+    console.error(`error: no deployment recorded for ${key}. Run scripts/deploy-variants.mjs first.`);
+    process.exit(1);
+  }
+  console.log(`Promoting ${key} (${d.url}, commit ${d.commit})`);
   execFileSync("vercel", ["promote", d.url, "--yes", ...token, ...scope], { cwd: ROOT, stdio: "inherit" });
 }
 
-async function promoteViaApi(deploymentUrl) {
+async function promoteViaApi(variant) {
   const teamId = process.env.VERCEL_ORG_ID;
   const projectId = process.env.VERCEL_PROJECT_ID;
   if (!teamId || !projectId) throw new Error("VERCEL_ORG_ID and VERCEL_PROJECT_ID are required with VERCEL_TOKEN");
   const headers = { Authorization: `Bearer ${process.env.VERCEL_TOKEN}` };
-  const host = deploymentUrl.replace(/^https?:\/\//, "");
-  const lookup = await fetch(`https://api.vercel.com/v13/deployments/${host}?teamId=${teamId}`, { headers });
-  if (!lookup.ok) throw new Error(`deployment lookup failed: ${lookup.status} ${await lookup.text()}`);
-  const { id, target, readyState } = await lookup.json();
-  console.log(`  deployment ${id} (${target}, ${readyState})`);
-  const res = await fetch(`https://api.vercel.com/v10/projects/${projectId}/promote/${id}?teamId=${teamId}`, { method: "POST", headers });
+  const q = new URLSearchParams({ projectId, teamId, target: "production", state: "READY", limit: "5", "meta-variant": variant });
+  const list = await fetch(`https://api.vercel.com/v6/deployments?${q}`, { headers });
+  if (!list.ok) throw new Error(`deployment lookup failed: ${list.status} ${await list.text()}`);
+  const { deployments } = await list.json();
+  const d = (deployments ?? []).filter((x) => x.meta?.variant === variant).sort((a, b) => b.created - a.created)[0];
+  if (!d) throw new Error(`no ready production deployment tagged variant=${variant}. Run the "Build and deploy all variants" workflow first.`);
+  console.log(`Promoting ${variant}: ${d.uid} https://${d.url} (commit ${d.meta?.commit ?? "?"}, built ${new Date(d.created).toISOString()})`);
+  const res = await fetch(`https://api.vercel.com/v10/projects/${projectId}/promote/${d.uid}?teamId=${teamId}`, { method: "POST", headers });
   if (!res.ok && res.status !== 201) throw new Error(`promote failed: ${res.status} ${await res.text()}`);
   console.log(`  promote accepted (${res.status})`);
 }

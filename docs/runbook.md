@@ -66,7 +66,7 @@ required.
 
 | Kind | Name | Value |
 |---|---|---|
-| Secret | `VERCEL_TOKEN` | a token from vercel.com/account/tokens, scope: the team that owns the project |
+| Secret | `VERCEL_TOKEN` | a token from vercel.com/account/settings/tokens, scope `random-test` (team-scoped is enough) |
 | Variable | `VERCEL_ORG_ID` | `orgId` from `.vercel/project.json` after `vercel link` |
 | Variable | `VERCEL_PROJECT_ID` | `projectId` from the same file |
 | Variable | `STORE_BASE_URL` | the production URL, no trailing slash |
@@ -82,9 +82,11 @@ Or locally with a logged-in Vercel CLI:
 npm run deploy:variants -- --promote v1
 ```
 
-This builds v1, v2-selectors, v2-urls and v2-both as staged production deployments and
-records their URLs in `deployments.json`. It takes a few minutes and only needs to run
-again after a code change. The switch itself never builds.
+This builds v1, v2-selectors, v2-urls and v2-both as staged production deployments,
+each tagged with a `variant` meta key. It takes about four minutes, runs on every push
+to `main`, and the switch finds the newest deployment per tag. The switch itself never
+builds. Locally the script also writes `deployments.json` (ignored by git) for
+`npm run switch`.
 
 ### 3. Build the scraper in Scraper Studio
 
@@ -168,8 +170,9 @@ You are on `urls` or `both`: the input URLs are 404, nothing to relearn. Use `se
 
 **The Switch Action ran but the site did not change.**
 The job summary prints `attempt N: live=v1/selectors want=v2/selectors`. If it never
-matches, the promote did not land: check that `VERCEL_TOKEN` belongs to the team that
-owns the project and that `deployments.json` lists the variant. Also check that the
+matches, the promote did not land: check that `VERCEL_TOKEN` belongs to the `random-test`
+team and that the "Build and deploy all variants" workflow has run since the last
+code change. Also check that the
 Vercel project is **not** connected to the GitHub repo through the Git integration; an
 automatic production deploy from a push would override the promoted deployment.
 `vercel.json` disables Git deployments as a guard.

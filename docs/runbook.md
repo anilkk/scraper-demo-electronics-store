@@ -99,10 +99,18 @@ builds. Locally the script also writes `deployments.json` (ignored by git) for
 
    (written to `inputs/v1-selectors-product-urls.{txt,csv,json}`).
 3. Ask for these fields: `name`, `brand`, `price`, `stock`, `sku`, `rating`, `review_count`, `specs`.
-4. In the generated schema, mark **`price` required**, and ideally `name` and `sku` too.
-   Without a required field, a v2 page yields empty rows, empty rows count as
-   successes, no error code is raised, and nothing fires. This is the single most common
-   reason the demo does nothing.
+4. Make sure a missing price is an **error, not an empty cell**. Open the generated
+   parser code in the IDE and check how `price` is read. Code like
+   `$('.product-price').text()` returns `""` on v2 and the row counts as a success, so
+   nothing fires. Code like `document.querySelector('.product-price').textContent`
+   throws on v2 and gives `parse_error`. If in doubt, add one guard line after the
+   price is read, then **Update Schema** and **Save to Production**:
+
+   ```js
+   if (!price) throw new Error('price not found on page');
+   ```
+
+   This is the single most common reason the demo does nothing.
 5. Run it against v1. Expect 5 clean rows with prices like `€299.00`.
 
 ### 4. Configure Auto Self-Healing on the scraper
@@ -118,6 +126,21 @@ builds. Locally the script also writes `deployments.json` (ignored by git) for
 
 ---
 
+## Timing: healing takes minutes, not seconds
+
+The docs say a healing refactor "can take up to 15 minutes" and Bright Data emails when
+the diff is ready. The store flips in 9 seconds and the failed run shows in about a
+minute, but the heal itself will not finish inside a short slot. Plan the talk around
+that with **two identical scrapers**:
+
+| Scraper | Auto Self-Healing | Role |
+|---|---|---|
+| `voltique-pdp-live` | on, Per Job, min inputs 5 | breaks live on stage and visibly *triggers* healing |
+| `voltique-pdp-healed` | on, same settings | broken and healed 30 to 60 minutes before the slot; shows the *result* |
+
+Two scrapers also sidestep the 3 hour cooldown, which would otherwise block a second
+trigger on the scraper you rehearsed with. Both take the same 5 input URLs.
+
 ## On stage
 
 Before the talk, run the Action once with `v1` so the store is in the "before" state,
@@ -129,9 +152,12 @@ and have the Scraper Studio scraper open with a fresh successful v1 run.
    The job summary shows the moment the live site reports v2 and a PASS/FAIL per gate.
    Refresh the store: new design, badge in the corner reads `v2 · redesign · selectors`.
 3. **Re-run the scraper.** It fails with `parse_error` on 5 of 5 inputs.
-4. **Auto Self-Healing fires.** It regenerates the extraction code. The next run returns
-   5 rows again, now reading `h1.item-title` and `299,00 €`.
-5. **Reset** afterwards: run the Action with `v1`.
+4. **Auto Self-Healing fires.** Open the scraper's Auto Self-Healing tab: the Status
+   section lists the healing job that just started.
+5. **Show the outcome on the second scraper.** Switch to `voltique-pdp-healed`: the diff
+   from its earlier heal (old `.product-price` selector replaced by `.price-tag`), and its
+   post-heal run with 5 rows reading `299,00 €`.
+6. **Reset** afterwards: run the Action with `v1`.
 
 Measured flip time on 2026-09-04: 5 to 15 seconds, including three consecutive confirmation polls. From a
 terminal you can do the same without GitHub:

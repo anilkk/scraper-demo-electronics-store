@@ -25,7 +25,29 @@ if (!d) {
 
 console.log(`Promoting ${key} (${d.url}, commit ${d.commit})`);
 const started = Date.now();
-execFileSync("vercel", ["promote", d.url, "--yes", ...token, ...scope], { cwd: ROOT, stdio: "inherit" });
+if (process.env.VERCEL_TOKEN) {
+  // CI path: the REST API accepts team-scoped tokens; the CLI does not
+  // ("User not found (404)"), and needs no install step.
+  await promoteViaApi(d.url);
+} else {
+  // Local path: a logged-in Vercel CLI.
+  execFileSync("vercel", ["promote", d.url, "--yes", ...token, ...scope], { cwd: ROOT, stdio: "inherit" });
+}
+
+async function promoteViaApi(deploymentUrl) {
+  const teamId = process.env.VERCEL_ORG_ID;
+  const projectId = process.env.VERCEL_PROJECT_ID;
+  if (!teamId || !projectId) throw new Error("VERCEL_ORG_ID and VERCEL_PROJECT_ID are required with VERCEL_TOKEN");
+  const headers = { Authorization: `Bearer ${process.env.VERCEL_TOKEN}` };
+  const host = deploymentUrl.replace(/^https?:\/\//, "");
+  const lookup = await fetch(`https://api.vercel.com/v13/deployments/${host}?teamId=${teamId}`, { headers });
+  if (!lookup.ok) throw new Error(`deployment lookup failed: ${lookup.status} ${await lookup.text()}`);
+  const { id, target, readyState } = await lookup.json();
+  console.log(`  deployment ${id} (${target}, ${readyState})`);
+  const res = await fetch(`https://api.vercel.com/v10/projects/${projectId}/promote/${id}?teamId=${teamId}`, { method: "POST", headers });
+  if (!res.ok && res.status !== 201) throw new Error(`promote failed: ${res.status} ${await res.text()}`);
+  console.log(`  promote accepted (${res.status})`);
+}
 
 const base = baseUrl();
 if (!base) {

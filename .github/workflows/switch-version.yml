@@ -59,9 +59,6 @@ jobs:
             exit 1
           fi
 
-      - name: Install Vercel CLI
-        run: npm i -g vercel@latest
-
       - name: Promote the requested variant
         run: node scripts/switch.mjs --version "$V" --mode "$M" | tee "$RUNNER_TEMP/switch.log"
 

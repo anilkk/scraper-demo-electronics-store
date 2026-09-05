@@ -57,8 +57,10 @@ export function color(on) {
  * Order: VERCEL_SCOPE, VERCEL_ORG_ID (CI), then .vercel/project.json (local link).
  */
 export function scopeArgs() {
-  const fromEnv = process.env.VERCEL_SCOPE || process.env.VERCEL_ORG_ID;
-  if (fromEnv) return ["--scope", fromEnv];
+  if (process.env.VERCEL_SCOPE) return ["--scope", process.env.VERCEL_SCOPE];
+  // In CI the CLI reads VERCEL_ORG_ID itself. Passing --scope on top makes a
+  // team-scoped token fail with "User not found (404)".
+  if (process.env.VERCEL_ORG_ID) return [];
   try {
     const link = JSON.parse(readFileSync(join(ROOT, ".vercel/project.json"), "utf8"));
     if (link.orgId) return ["--scope", link.orgId];

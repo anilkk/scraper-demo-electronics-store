@@ -38,6 +38,9 @@ jobs:
       STORE_BASE_URL: ${{ vars.STORE_BASE_URL }}
       V: ${{ inputs.version }}
       M: ${{ inputs.break_mode }}
+    defaults:
+      run:
+        shell: bash -eo pipefail {0}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4

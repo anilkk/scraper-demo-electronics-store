@@ -116,6 +116,7 @@ scripts/deploy-variants.mjs builds and deploys every variant, tags each with met
 scripts/switch.mjs          promotes a variant (API in CI, CLI locally) and waits for the live site to agree
 scripts/verify.mjs          checks the three gates against the live site
 scripts/inputs.mjs          writes the product URL lists for Scraper Studio
+scraper/parser.v1.js        baseline parser to paste into Scraper Studio before each take
 docs/runbook.md             the on-stage runbook
 ```
 

@@ -99,18 +99,18 @@ builds. Locally the script also writes `deployments.json` (ignored by git) for
 
    (written to `inputs/v1-selectors-product-urls.{txt,csv,json}`).
 3. Ask for these fields: `name`, `brand`, `price`, `stock`, `sku`, `rating`, `review_count`, `specs`.
-4. Make sure a missing price is an **error, not an empty cell**. Open the generated
-   parser code in the IDE and check how `price` is read. Code like
-   `$('.product-price').text()` returns `""` on v2 and the row counts as a success, so
-   nothing fires. Code like `document.querySelector('.product-price').textContent`
-   throws on v2 and gives `parse_error`. If in doubt, add one guard line after the
-   price is read, then **Update Schema** and **Save to Production**:
+4. Replace the generated parser with [`scraper/parser.v1.js`](../scraper/parser.v1.js):
+   Code tab, Parser code, paste, **Save to development**, Preview one v1 URL, then
+   **Save to production**. The baseline throws a descriptive `parse_error` whenever a
+   required selector matches nothing.
 
-   ```js
-   if (!price) throw new Error('price not found on page');
-   ```
-
-   This is the single most common reason the demo does nothing.
+   Why this matters: on the first rehearsal the healer "fixed" the broken price by
+   guarding against NaN and returning null. The scraper then returned 12 rows of
+   empty names and null prices on v2, which counts as 100 % success, and every later
+   flip "worked". A heal that cannot silence the error by returning null has to find
+   the new selectors instead.
+5. In the **Output schema** tab, mark `name`, `brand`, `price` and `sku` as required if
+   the option exists. It is a second lock on the same door.
 5. Run it against v1. Expect 12 clean rows with prices like `€299.00`.
 
 ### 4. Configure Auto Self-Healing on the scraper
@@ -157,7 +157,8 @@ and have the Scraper Studio scraper open with a fresh successful v1 run.
 5. **Show the outcome on the second scraper.** Switch to `voltique-pdp-healed`: the diff
    from its earlier heal (old `.product-price` selector replaced by `.price-tag`), and its
    post-heal run with 12 rows reading `299,00 €`.
-6. **Reset** afterwards: run the Action with `v1`.
+6. **Reset** afterwards: run the Action with `v1`, and paste `scraper/parser.v1.js` back
+   into the scraper so the next take starts from the v1 code, not the healed one.
 
 Measured flip time on 2026-09-04: 5 to 15 seconds, including three consecutive confirmation polls. From a
 terminal you can do the same without GitHub:
@@ -190,6 +191,11 @@ like breakage but are not eligible.
 
 **It fired once and then stopped.**
 Cooldown, daily cap, or Per Day frequency. Failed attempts consume the budget too.
+
+**It healed, and now the scraper "works" on both versions.**
+Download the output of a post-heal run. If names are empty and prices null, the heal
+only added null guards. Paste `scraper/parser.v1.js` back in and heal again; the throws
+force a real selector fix. Consider marking fields required in the Output schema.
 
 **It healed but the scraper still returns nothing.**
 You are on `urls` or `both`: the input URLs are 404, nothing to relearn. Use `selectors`.
